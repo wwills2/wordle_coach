@@ -1,11 +1,9 @@
 package com.example.testactivity;
 
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Button;
 import android.view.View;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         final Button button3 = findViewById(R.id.gridColor_02);
         final Button button4 = findViewById(R.id.gridColor_03);
         final Button button5 = findViewById(R.id.gridColor_04);
+
+        final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
 
 
 
