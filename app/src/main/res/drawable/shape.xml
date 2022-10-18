@@ -1,6 +1,6 @@
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetLeft="16dp"
-    android:insetRight="16dp">
+    android:insetLeft="2dp"
+    android:insetRight="2dp">
     <layer-list>
         <item>
             <shape android:shape="rectangle">
@@ -10,8 +10,8 @@
 
         <item
             android:left="5dp"
-            android:right="1dp"
-            android:top="1dp"
+            android:right="5dp"
+            android:top="5dp"
             android:bottom="5dp">
 
             <shape>
