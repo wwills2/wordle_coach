@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final EditText userInput_00 = findViewById(R.id.gridInput_00);
-        final TextView output = findViewById(R.id.OutputBottom);
         final Button button1 = findViewById(R.id.gridColor_00);
         int button1ColorVal = 0;
         final Button button2 = findViewById(R.id.gridColor_01);
