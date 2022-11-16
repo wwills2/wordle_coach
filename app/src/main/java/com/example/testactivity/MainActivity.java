@@ -1,5 +1,8 @@
 package com.example.testactivity;
 
+import android.content.Context;
+import android.view.KeyEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +11,9 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
     int toggle1;
     int toggle2;
     int toggle3;
@@ -23,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         final String GRAY_HEX = "#D3D3D3";
         final String GREEN_HEX = "#00FF00";
 
-        final EditText userInput_00 = findViewById(R.id.gridInput_00);
         final Button button1 = findViewById(R.id.gridColor_00);
         final Button button2 = findViewById(R.id.gridColor_01);
         final Button button3 = findViewById(R.id.gridColor_02);
@@ -119,7 +124,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final EditText gridInputLetter0 = findViewById(R.id.gridInput_00);
 
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        gridInputLetter0.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keycode, KeyEvent keyEvent) {
+                if (keycode == 66){
+                    gridInputLetter0.clearFocus();
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    findViewById(R.id.rootLayout).invalidate();
+                }
+
+                return true;
+            }
+        });
+    }
+
+    protected void onResume(Bundle savedInstanceState){
+
+        final EditText gridInputLetter0 = findViewById(R.id.gridInput_00);
+        final EditText gridInputLetter1 = findViewById(R.id.gridInput_01);
+        final EditText gridInputLetter2 = findViewById(R.id.gridInput_02);
+        final EditText gridInputLetter3 = findViewById(R.id.gridInput_03);
+        final EditText gridInputLetter4 = findViewById(R.id.gridInput_04);
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        gridInputLetter0.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keycode, KeyEvent keyEvent) {
+                if (keycode == 66){
+                    gridInputLetter0.clearFocus();
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
+                return false;
+            }
+        });
     }
 }
 

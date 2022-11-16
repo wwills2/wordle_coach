@@ -5,7 +5,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context=".MainActivity"
-        >
+                                                   android:id="@+id/rootLayout">
 
 
     <ScrollView
@@ -207,7 +207,8 @@
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MainActivity">
+            tools:context=".MainActivity"
+            android:focusableInTouchMode="true">
 
 
         <EditText
@@ -223,7 +224,9 @@
                 android:textColor="@color/white"
                 android:textSize="28dp"
                 android:textAllCaps="true"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:focusable="auto"
+                android:focusableInTouchMode="true"/>
 
         <EditText
                 android:id="@+id/gridInput_01"
