@@ -12,8 +12,6 @@ import android.graphics.Color;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     int toggle1;
     int toggle2;
     int toggle3;
@@ -34,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button3 = findViewById(R.id.gridColor_02);
         final Button button4 = findViewById(R.id.gridColor_03);
         final Button button5 = findViewById(R.id.gridColor_04);
+        final Button enterGuess = findViewById(R.id.enterGuess);
 
         final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
 
@@ -124,24 +123,56 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        final EditText gridInputLetter0 = findViewById(R.id.gridInput_00);
-
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        gridInputLetter0.setOnKeyListener(new View.OnKeyListener() {
+        int i = 0;
+        enterGuess.setOnClickListener(new View.OnClickListener(){
             @Override
-            public boolean onKey(View view, int keycode, KeyEvent keyEvent) {
-                if (keycode == 66){
-                    //gridInputLetter0.clearFocus();
-                    //imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    //findViewById(R.id.rootLayout).invalidate();
+            public void onClick(View v) {
+
+                final String EMPTY = "Guess";
+
+                EditText char0 =(EditText)findViewById(R.id.gridInput_00);
+                EditText char1 =(EditText)findViewById(R.id.gridInput_01);
+                EditText char2 =(EditText)findViewById(R.id.gridInput_02);
+                EditText char3 =(EditText)findViewById(R.id.gridInput_03);
+                EditText char4 =(EditText)findViewById(R.id.gridInput_04);
+
+                String enteredWord = char0.getText().toString() + char1.getText().toString() + char2.getText().toString() +
+                        char3.getText().toString() + char4.getText().toString();
+
+                TextView prevGuess1 = (TextView)findViewById(R.id.prevGuess1);
+                TextView prevGuess2 = (TextView)findViewById(R.id.prevGuess2);
+                TextView prevGuess3 = (TextView)findViewById(R.id.prevGuess3);
+                TextView prevGuess4 = (TextView)findViewById(R.id.prevGuess4);
+                TextView prevGuess5 = (TextView)findViewById(R.id.prevGuess5);
+                TextView prevGuess6 = (TextView)findViewById(R.id.prevGuess6);
+
+                if (prevGuess1.getText().toString().contains(EMPTY)){
+                    prevGuess1.setText("1. " + enteredWord);
+                }else if (prevGuess2.getText().toString().contains(EMPTY)){
+                    prevGuess2.setText("2. " + enteredWord);
+                }else if (prevGuess3.getText().toString().contains(EMPTY)){
+                    prevGuess3.setText("3. " + enteredWord);
+                }else if (prevGuess4.getText().toString().contains(EMPTY)){
+                    prevGuess4.setText("4. " + enteredWord);
+                }else if (prevGuess5.getText().toString().contains(EMPTY)){
+                    prevGuess5.setText("5. " + enteredWord);
+                }else{
+                    prevGuess6.setText("6. " + enteredWord);
                 }
 
-                return true;
+                char0.setText("");
+                char0.clearFocus();
+                char1.setText("");
+                char1.clearFocus();
+                char2.setText("");
+                char2.clearFocus();
+                char3.setText("");
+                char3.clearFocus();
+                char4.setText("");
+                char4.clearFocus();
+
             }
         });
-
-         */
     }
 
     protected void onResume(Bundle savedInstanceState){
