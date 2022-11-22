@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/enterGuess"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="25dp"
-            android:backgroundTint="#5D0FB5"
+            android:backgroundTint="#1B2AAF"
             app:layout_constraintTop_toTopOf="@+id/enterGuess"/>
 
     <Button
@@ -76,12 +76,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
             android:background="@color/cardview_dark_background"
             android:columnCount="5"
             android:rowCount="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
             tools:context=".MainActivity"
             app:layout_constraintBaseline_toTopOf="parent"
