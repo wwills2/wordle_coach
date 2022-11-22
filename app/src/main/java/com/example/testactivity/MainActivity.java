@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
         final Button button4 = findViewById(R.id.gridColor_03);
         final Button button5 = findViewById(R.id.gridColor_04);
 
-        final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
-
-
         button1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -119,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
     }
 }
 

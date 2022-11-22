@@ -9,211 +9,90 @@
 
 
     <ScrollView
-            android:layout_width="362dp"
-            android:layout_height="194dp"
-            android:layout_marginTop="360dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="177dp"
-            android:layout_marginEnd="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/nextGuesses"
             android:backgroundTint="#7E55C8"
             android:background="#A8A8A8"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/enterGuess"
+            app:layout_constraintTop_toBottomOf="@id/gridLayoutPrevGuesses"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:backgroundTint="#673AB7"/>
+                android:backgroundTint="#673AB7"
+                android:clickable="true"
+                android:visibility="visible"
+                android:id="@+id/nextGuessList"/>
     </ScrollView>
 
-    <TextView
-            android:id="@+id/prevGuess5"
-            android:layout_width="80dp"
-            android:layout_height="26dp"
-            android:text="5."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="223dp"
-            android:layout_marginTop="306dp"
-            android:layout_marginEnd="108dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="0.0"
-            android:backgroundTint="#A6A6A6"
-            android:layout_marginBottom="399dp"
-            android:textAlignment="viewStart"
-            android:background="#A5A5A5"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-            android:id="@+id/prevGuess4"
-            android:layout_width="85dp"
-            android:layout_height="29dp"
-            android:text="4."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="95dp"
-            android:layout_marginTop="306dp"
-            android:layout_marginEnd="231dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            android:backgroundTint="#A6A6A6"
-            android:layout_marginBottom="396dp"
-            android:textAlignment="viewStart"
-            android:background="#A5A5A5"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-            android:id="@+id/prevGuess3"
-            android:layout_width="86dp"
-            android:layout_height="30dp"
-            android:text="3."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="278dp"
-            android:layout_marginTop="266dp"
-            android:layout_marginEnd="47dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            android:backgroundTint="#A6A6A6"
-            android:layout_marginBottom="423dp"
-            android:textAlignment="viewStart"
-            android:background="#A5A5A5"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-            android:id="@+id/prevGuess2"
-            android:layout_width="88dp"
-            android:layout_height="31dp"
-            android:text="2."
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="156dp"
-            android:layout_marginTop="266dp"
-            android:layout_marginEnd="167dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            android:backgroundTint="#A6A6A6"
-            android:layout_marginBottom="422dp"
-            android:textAlignment="viewStart"
-            android:background="#A5A5A5"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-            android:id="@+id/prevGuess1"
-            android:layout_width="98dp"
-            android:layout_height="31dp"
-            android:text="1."
-            android:layout_marginEnd="280dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="#979797"
-            android:textAlignment="viewStart"
-            android:background="#A5A5A5"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="266dp"
-            android:layout_marginBottom="434dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <TextView
-            android:text="Current Guess:"
-            android:layout_width="230dp"
-            android:layout_height="52dp"
-            android:id="@+id/currentGuess3"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="28dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="325dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="51dp"
-            app:layout_constraintBottom_toTopOf="@+id/gridLayout"
-            app:layout_constraintHorizontal_bias="0.075"
-            app:layout_constraintVertical_bias="0.0"
-            android:textSize="34sp"/>
 
     <Button
             android:id="@+id/undoGuess"
-            android:layout_width="173dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:text="Undo Last Guess"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/enterGuess"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="582dp"
-            android:layout_marginEnd="214dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginStart="25dp"
             android:backgroundTint="#5D0FB5"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="89dp"/>
+            app:layout_constraintTop_toTopOf="@+id/enterGuess"/>
 
     <Button
             android:id="@+id/startOver"
-            android:layout_width="173dp"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:text="Start Over"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="646dp"
             android:layout_marginEnd="214dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
             android:backgroundTint="#A30000"
-            android:layout_marginBottom="25dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"/>
 
     <Button
             android:id="@+id/helpButton"
             android:layout_width="102dp"
             android:layout_height="60dp"
             android:text="Help?"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="278dp"
-            android:layout_marginTop="655dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
             android:backgroundTint="#939393"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"/>
 
     <GridLayout
             android:id="@+id/gridLayout"
-            android:layout_width="381dp"
-            android:layout_height="152dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:background="@color/cardview_dark_background"
             android:columnCount="5"
             android:rowCount="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MainActivity">
+            tools:context=".MainActivity"
+            app:layout_constraintBaseline_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/currentGuess"
+            android:layout_marginTop="8dp">
 
 
         <EditText
                 android:id="@+id/gridInput_00"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:ems="10"
@@ -227,8 +106,8 @@
 
         <EditText
                 android:id="@+id/gridInput_01"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:ems="10"
@@ -242,8 +121,8 @@
 
         <EditText
                 android:id="@+id/gridInput_02"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="2"
                 android:ems="10"
@@ -256,8 +135,8 @@
 
         <EditText
                 android:id="@+id/gridInput_03"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="3"
                 android:ems="10"
@@ -270,8 +149,8 @@
 
         <EditText
                 android:id="@+id/gridInput_04"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="4"
                 android:ems="10"
@@ -284,79 +163,218 @@
 
         <Button
                 android:id="@+id/gridColor_00"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_row="1"
                 android:layout_column="0"
                 android:backgroundTint="#D3D3D3"/>
 
         <Button
                 android:id="@+id/gridColor_01"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_row="1"
                 android:layout_column="1"
                 android:backgroundTint="#D3D3D3"/>
 
         <Button
                 android:id="@+id/gridColor_02"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_row="1"
                 android:layout_column="2"
                 android:backgroundTint="#D3D3D3"/>
 
         <Button
                 android:id="@+id/gridColor_03"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_row="1"
                 android:layout_column="3"
                 android:backgroundTint="#D3D3D3"/>
 
         <Button
                 android:id="@+id/gridColor_04"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_row="1"
                 android:layout_column="4"
                 android:backgroundTint="#D3D3D3"/>
         />
     </GridLayout>
 
+    <GridLayout
+            android:id="@+id/gridLayoutPrevGuesses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@color/cardview_dark_background"
+            android:columnCount="3"
+            android:rowCount="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.111"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+            tools:context=".MainActivity"
+            app:layout_constraintBottom_toTopOf="@+id/nextGuesses"
+            android:layout_marginTop="40dp">
+
+        <TextView
+                android:layout_column="0"
+                android:layout_row="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevGuess1"
+                android:text="1. Guess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:backgroundTint="#A6A6A6"
+                android:textAlignment="viewStart"
+                android:background="#A5A5A5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"/>
+
+        <TextView
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevGuess2"
+                android:text="2. Guess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:backgroundTint="#A6A6A6"
+                android:textAlignment="viewStart"
+                android:background="#A5A5A5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"/>
+
+        <TextView
+                android:layout_column="2"
+                android:layout_row="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevGuess3"
+                android:text="3. Guess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:backgroundTint="#A6A6A6"
+                android:textAlignment="viewStart"
+                android:background="#A5A5A5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"/>
+
+        <TextView
+                android:layout_column="0"
+                android:layout_row="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevGuess4"
+                android:text="4. Guess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:backgroundTint="#A6A6A6"
+                android:textAlignment="viewStart"
+                android:background="#A5A5A5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"/>
+
+        <TextView
+                android:layout_column="1"
+                android:layout_row="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevGuess5"
+                android:text="5. Guess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:backgroundTint="#A6A6A6"
+                android:textAlignment="viewStart"
+                android:background="#A5A5A5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"/>
+
+        <TextView
+                android:layout_column="2"
+                android:layout_row="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/prevGuess6"
+                android:text="6. Guess"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:backgroundTint="#A6A6A6"
+                android:textAlignment="viewStart"
+                android:background="#A5A5A5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"/>
+    </GridLayout>
 
     <Button
             android:id="@+id/enterGuess"
-            android:layout_width="173dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             android:text="Enter Guess"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="214dp"
-            android:layout_marginTop="582dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="25dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
             android:backgroundTint="#2F602B"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="89dp"/>
+            android:layout_marginBottom="89dp"
+            app:layout_constraintStart_toEndOf="@+id/undoGuess"
+            android:layout_marginStart="16dp"/>
 
     <TextView
             android:text="Current Guess:"
-            android:layout_width="230dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/currentGuess"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="24dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="325dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="51dp"
-            app:layout_constraintBottom_toTopOf="@+id/gridLayout"
-            app:layout_constraintHorizontal_bias="0.075"
-            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="24dp"
             android:textSize="34sp"/>
 
     <TextView
@@ -367,11 +385,10 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="32dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/prevGuess2"
+            app:layout_constraintBottom_toTopOf="@+id/gridLayoutPrevGuesses"
             android:layout_marginEnd="200dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintTop_toBottomOf="@+id/gridLayout"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.0"/>
