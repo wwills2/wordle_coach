@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         final String ORANGE_HEX = "#FFA500";
         final String GRAY_HEX = "#D3D3D3";
-        final String GREEN_HEX = "#00FF00";
+        final String GREEN_HEX = "#2F8E3C";
 
         final Button button1 = findViewById(R.id.gridColor_00);
         final Button button2 = findViewById(R.id.gridColor_01);
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
         final EditText gridInputLetter0 = findViewById(R.id.gridInput_00);
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -131,14 +132,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int keycode, KeyEvent keyEvent) {
                 if (keycode == 66){
-                    gridInputLetter0.clearFocus();
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    findViewById(R.id.rootLayout).invalidate();
+                    //gridInputLetter0.clearFocus();
+                    //imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    //findViewById(R.id.rootLayout).invalidate();
                 }
 
                 return true;
             }
         });
+
+         */
     }
 
     protected void onResume(Bundle savedInstanceState){
