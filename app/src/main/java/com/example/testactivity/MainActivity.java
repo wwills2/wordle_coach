@@ -1,6 +1,9 @@
 package com.example.testactivity;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +22,11 @@ public class MainActivity extends AppCompatActivity {
     int colorNum3;
     int colorNum4;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         final String YELLOW_HEX = "#FFA500";
@@ -33,10 +38,17 @@ public class MainActivity extends AppCompatActivity {
         final Button colorButton2 = findViewById(R.id.gridColor_02);
         final Button colorButton3 = findViewById(R.id.gridColor_03);
         final Button colorButton4 = findViewById(R.id.gridColor_04);
+        final EditText textInput0 = findViewById(R.id.gridInput_00);
+        final EditText textInput1 = findViewById(R.id.gridInput_01);
+        final EditText textInput2 = findViewById(R.id.gridInput_02);
+        final EditText textInput3 = findViewById(R.id.gridInput_03);
+        final EditText textInput4 = findViewById(R.id.gridInput_04);
         final Button enterGuess = findViewById(R.id.enterGuess);
 
-        final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
+        //final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
 
+
+        inputWrapping(textInput0, textInput1, textInput2, textInput3, textInput4);
 
         colorButton0.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -54,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 colorNum0 += 1;
             }
         });
+
+
+
+
 
 
         colorButton1.setOnClickListener(new View.OnClickListener(){
@@ -204,6 +220,162 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void inputWrapping(EditText textInput0,EditText textInput1,EditText textInput2,EditText textInput3,EditText textInput4){
+
+        textInput0.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() == 1) {
+                    textInput1.requestFocus();
+                }
+            }
+        });
+        textInput1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() == 1) {
+                    textInput2.requestFocus();
+                }
+            }
+        });
+        textInput2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() == 1) {
+                    textInput3.requestFocus();
+                }
+            }
+        });
+        textInput3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (editable.toString().length() == 1) {
+                    textInput4.requestFocus();
+                }
+            }
+        });
+        textInput4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (editable.toString().length() == 1) {
+
+                }
+            }
+        });
+        textInput0.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(textInput0.getText().toString() .length() == 0 && keyCode == event.KEYCODE_DEL)
+                {
+                    textInput0.setText("");
+
+                }
+                return false;
+            }
+        });
+        textInput1.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(textInput1.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
+                {
+                    textInput1.setText("");
+                    textInput1.clearFocus();
+                    textInput0.requestFocus();
+                    //textInput0.setText("");
+                }
+                return false;
+            }
+        });
+
+        textInput2.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(textInput2.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
+                {
+                    textInput2.setText("");
+                    textInput2.clearFocus();
+                    textInput1.requestFocus();
+                    //textInput1.setText("");
+                }
+                return false;
+            }
+        });
+        textInput3.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(textInput3.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
+                {
+                    textInput3.setText("");
+                    textInput3.clearFocus();
+                    textInput2.requestFocus();
+                    //textInput2.setText("");
+                }
+                return false;
+            }
+        });
+        textInput4.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(textInput4.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
+                {
+                    textInput4.setText("");
+                    textInput4.clearFocus();
+                    textInput3.requestFocus();
+                   // textInput3.setText("");
+                }
+                return false;
+            }
+        });
+
     }
 }
 
