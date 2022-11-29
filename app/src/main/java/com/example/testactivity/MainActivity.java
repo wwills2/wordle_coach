@@ -16,12 +16,11 @@ import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    int colorNum0;
-    int colorNum1;
-    int colorNum2;
-    int colorNum3;
-    int colorNum4;
-
+    Integer colorNum0 = 0;
+    Integer colorNum1 = 0;
+    Integer colorNum2 = 0;
+    Integer colorNum3 = 0;
+    Integer colorNum4 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,98 +44,90 @@ public class MainActivity extends AppCompatActivity {
         final EditText textInput4 = findViewById(R.id.gridInput_04);
         final Button enterGuess = findViewById(R.id.enterGuess);
 
-        //final ScrollView nextGuesses = findViewById(R.id.nextGuesses);
-
-
         inputWrapping(textInput0, textInput1, textInput2, textInput3, textInput4);
 
         colorButton0.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                colorNum0 += 1;
+
                 if(colorNum0 % 3 == 0){ // if toggle = 0 -> change to orange
-                    colorButton0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
-                }
-                if(colorNum0 % 3 == 1){ // if toggle = 0 -> change to orange
-                    colorButton0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
-                }
-                if(colorNum0 % 3 == 2){ // if toggle = 0 -> change to orange
                     colorButton0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-
-                colorNum0 += 1;
+                if(colorNum0 % 3 == 1){ // if toggle = 0 -> change to orange
+                    colorButton0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
+                }
+                if(colorNum0 % 3 == 2){ // if toggle = 0 -> change to orange
+                    colorButton0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
+                }
             }
         });
-
-
-
-
-
 
         colorButton1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                colorNum1 += 1;
+
                 if(colorNum1 % 3 == 0){ // if toggle = 0 -> change to orange
-                    colorButton1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
-                }
-                if(colorNum1 % 3 == 1){ // if toggle = 0 -> change to orange
-                    colorButton1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
-                }
-                if(colorNum1 % 3 == 2){ // if toggle = 0 -> change to orange
                     colorButton1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-
-                colorNum1 += 1;
+                if(colorNum1 % 3 == 1){ // if toggle = 0 -> change to orange
+                    colorButton1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
+                }
+                if(colorNum1 % 3 == 2){ // if toggle = 0 -> change to orange
+                    colorButton1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
+                }
             }
         });
 
         colorButton2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                colorNum2 += 1;
+
                 if(colorNum2 % 3 == 0){ // if toggle = 0 -> change to orange
-                    colorButton2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
-                }
-                if(colorNum2 % 3 == 1){ // if toggle = 0 -> change to orange
-                    colorButton2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
-                }
-                if(colorNum2 % 3 == 2){ // if toggle = 0 -> change to orange
                     colorButton2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-
-                colorNum2 += 1;
+                if(colorNum2 % 3 == 1){ // if toggle = 0 -> change to orange
+                    colorButton2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
+                }
+                if(colorNum2 % 3 == 2){ // if toggle = 0 -> change to orange
+                    colorButton2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
+                }
             }
         });
 
         colorButton3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                colorNum3 += 1;
+
                 if(colorNum3 % 3 == 0){ // if toggle = 0 -> change to orange
-                    colorButton3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
-                }
-                if(colorNum3 % 3 == 1){ // if toggle = 0 -> change to orange
-                    colorButton3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
-                }
-                if(colorNum3 % 3 == 2){ // if toggle = 0 -> change to orange
                     colorButton3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-
-                colorNum3 += 1;
+                if(colorNum3 % 3 == 1){ // if toggle = 0 -> change to orange
+                    colorButton3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
+                }
+                if(colorNum3 % 3 == 2){ // if toggle = 0 -> change to orange
+                    colorButton3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
+                }
             }
         });
 
         colorButton4.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                colorNum4 += 1;
+
                 if(colorNum4 % 3 == 0){ // if toggle = 0 -> change to orange
-                    colorButton4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
-                }
-                if(colorNum4 % 3 == 1){ // if toggle = 0 -> change to orange
-                    colorButton4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
-                }
-                if(colorNum4 % 3 == 2){ // if toggle = 0 -> change to orange
                     colorButton4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-
-                colorNum4 += 1;
+                if(colorNum4 % 3 == 1){ // if toggle = 0 -> change to orange
+                    colorButton4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
+                }
+                if(colorNum4 % 3 == 2){ // if toggle = 0 -> change to orange
+                    colorButton4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
+                }
             }
         });
 
@@ -146,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String EMPTY = "Guess";
+                String colors = "";
+                String enteredWord = "";
 
                 //get the characters from the input grid
                 final EditText char0 = (EditText) findViewById(R.id.gridInput_00);
@@ -155,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 final EditText char4 = (EditText) findViewById(R.id.gridInput_04);
 
                 //concatenate letters into string
-                String enteredWord = char0.getText().toString() + char1.getText().toString() +
+                enteredWord = char0.getText().toString() + char1.getText().toString() +
                         char2.getText().toString() + char3.getText().toString() + char4.getText().toString();
 
                 //check that word is 5 chars long, if not, display popup
@@ -166,12 +159,11 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
 
-                    //get the colors from the buttons
-                    String colors = "";
-
+                    colors = colorNum0.toString() + colorNum1.toString() + colorNum2.toString() +
+                            colorNum3.toString() + colorNum4.toString();
 
                     // this will not stay here. it's just a skeleton for updating previous guesses
-                    // interfact to pass data to jamie's algo will go here
+                    // interface to pass data to jamie's algo will go here
                     TextView prevGuess1 = (TextView) findViewById(R.id.prevGuess1);
                     TextView prevGuess2 = (TextView) findViewById(R.id.prevGuess2);
                     TextView prevGuess3 = (TextView) findViewById(R.id.prevGuess3);
@@ -198,22 +190,27 @@ public class MainActivity extends AppCompatActivity {
                     char0.setText("");
                     char0.clearFocus();
                     colorButton0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+                    colorNum0 = 0;
 
                     char1.setText("");
                     char1.clearFocus();
                     colorButton1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+                    colorNum1 = 0;
 
                     char2.setText("");
                     char2.clearFocus();
                     colorButton2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+                    colorNum2 = 0;
 
                     char3.setText("");
                     char3.clearFocus();
                     colorButton3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+                    colorNum3 = 0;
 
                     char4.setText("");
                     char4.clearFocus();
                     colorButton4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+                    colorNum4 = 0;
 
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
