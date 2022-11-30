@@ -11,8 +11,6 @@ import android.view.View;
 import android.os.Bundle;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
 
