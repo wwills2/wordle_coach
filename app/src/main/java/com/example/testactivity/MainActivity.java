@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         final String YELLOW_HEX = "#FFA500";
         final String GRAY_HEX = "#D3D3D3";
         final String GREEN_HEX = "#2F8E3C";
+        
+        ArrayList<String> wordList = Util.readFile("data/valid-wordle-words.txt");
 
         final Button colorButton0 = findViewById(R.id.gridColor_00);
         final Button colorButton1 = findViewById(R.id.gridColor_01);
