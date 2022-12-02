@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> wordList = loadStrings();
 
 
-        for(int i = 0; i < wordList.size(); i++){
-            Log.d("word: "+i +" " , wordList.get(i));
-        }
+
+        Log.d("words: " , ""+wordList.size());
+
 
         final Button colorButton0 = findViewById(R.id.gridColor_00);
         final Button colorButton1 = findViewById(R.id.gridColor_01);
