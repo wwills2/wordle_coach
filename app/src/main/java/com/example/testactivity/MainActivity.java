@@ -3,6 +3,7 @@ package com.example.testactivity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -11,6 +12,15 @@ import android.view.View;
 import android.os.Bundle;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
         final String YELLOW_HEX = "#FFA500";
         final String GRAY_HEX = "#D3D3D3";
         final String GREEN_HEX = "#2F8E3C";
-        
-        ArrayList<String> wordList = Util.readFile("data/valid-wordle-words.txt");
+
+
+        ArrayList<String> wordList = loadStrings();
+
+
+        for(int i = 0; i < wordList.size(); i++){
+            Log.d("word: "+i +" " , wordList.get(i));
+        }
 
         final Button colorButton0 = findViewById(R.id.gridColor_00);
         final Button colorButton1 = findViewById(R.id.gridColor_01);
@@ -373,6 +389,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    ArrayList<String> loadStrings(){
+        try {
+
+            BufferedReader bufReader = new BufferedReader(new InputStreamReader(this.getResources().getAssets().open("valid-wordle-words.txt")));
+            ArrayList<String> listOfLines = new ArrayList<>();
+
+            String line = null;
+
+            line = bufReader.readLine();
+
+
+            while (line != null) {
+                listOfLines.add(line);
+                line = bufReader.readLine();
+            }
+            bufReader.close();
+            return listOfLines;
+        } catch (IOException e) {
+
+            return null;
+
+        }
     }
 }
 
