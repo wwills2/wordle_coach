@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Button enterGuess = findViewById(R.id.enterGuess);
         final Button startOverButton = findViewById(R.id.startOver);
+        final Button helpButton = findViewById(R.id.helpButton);
 
         inputWrapping(textInput0, textInput1, textInput2, textInput3, textInput4);
 
@@ -179,6 +180,15 @@ public class MainActivity extends AppCompatActivity {
                     textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
                 }
                 return false;
+            }
+        });
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                helpButtonDialogue popup = new helpButtonDialogue();
+                popup.show(getSupportFragmentManager(), null);
             }
         });
 
@@ -338,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
                             colorNum3.toString() + colorNum4.toString();
 
                     // this will not stay here. it's just a skeleton for updating previous guesses
+
 
                     // interface to pass data to jamie's algo will go here
 
@@ -542,6 +553,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
 
     }
 

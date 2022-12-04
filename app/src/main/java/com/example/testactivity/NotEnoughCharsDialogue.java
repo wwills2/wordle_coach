@@ -19,7 +19,6 @@ public class NotEnoughCharsDialogue extends DialogFragment {
         builder.setMessage("Please enter 5 letters")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // START THE GAME!
                     }
                 });
         // Create the AlertDialog object and return it
