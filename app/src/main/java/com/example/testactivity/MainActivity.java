@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     Integer colorNumTouch = 0;
 
+    Integer currGuessNum = 0;
+
     Integer colorNum0 = 0;
     Integer colorNum1 = 0;
     Integer colorNum2 = 0;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         final String GREEN_HEX = "#2F8E3C";
         final String BLACK_HEX = "#000000";
 
+        final String EMPTY = "Guess";
 
         ArrayList<String> wordList = loadStrings();
 
@@ -200,12 +203,14 @@ public class MainActivity extends AppCompatActivity {
                 textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
 
                 //Clear list of guesses Here
-                /*prevGuess1.setText("");
-                prevGuess2.setText("");
-                prevGuess3.setText("");
-                prevGuess4.setText("");
-                prevGuess5.setText("");
-                prevGuess6.setText("");*/
+                prevGuess1.setText("1. " + EMPTY);
+                prevGuess2.setText("2. " + EMPTY);
+                prevGuess3.setText("3. " + EMPTY);
+                prevGuess4.setText("4. " + EMPTY);
+                prevGuess5.setText("5. " + EMPTY);
+                prevGuess6.setText("6. " + EMPTY);
+
+                currGuessNum = 0;
             }
         });
 
@@ -305,7 +310,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String EMPTY = "Guess";
                 String colors = "";
                 String enteredWord = "";
 
@@ -328,10 +332,13 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
 
+                    currGuessNum++;
+
                     colors = colorNum0.toString() + colorNum1.toString() + colorNum2.toString() +
                             colorNum3.toString() + colorNum4.toString();
 
                     // this will not stay here. it's just a skeleton for updating previous guesses
+
                     // interface to pass data to jamie's algo will go here
 
                     if (prevGuess1.getText().toString().contains(EMPTY)) {
