@@ -1,7 +1,6 @@
 package com.example.testactivity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,7 +21,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener {
@@ -40,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     final String YELLOW_HEX = "#FFA500";
     final String GRAY_HEX = "#D3D3D3";
     final String GREEN_HEX = "#2F8E3C";
+
+    final String BLACK_HEX = "#000000";
 
     String mode = "textInput";
 
@@ -60,18 +60,19 @@ public class MainActivity extends AppCompatActivity
     TextView prevGuess5 = null;
     TextView prevGuess6 = null;
 
-    LinearLayout myRoot = null;
+    LinearLayout nextGuessLinearLayout = null;
 
     Button enterGuess = null;
     Button startOverButton = null;
     Button helpButton = null;
     ArrayList<Guess> guessObjects;
+    ArrayList<String> wordList;
 
     @Override
     public void onConfirmStartOverDialogueYes(DialogFragment dialog) {
 
         //remove scroll view
-        myRoot.removeAllViews();
+        nextGuessLinearLayout.removeAllViews();
 
         //remove colors and text
         textInput0.setText("");
@@ -94,7 +95,11 @@ public class MainActivity extends AppCompatActivity
         prevGuess5.setText("5. " + EMPTY);
         prevGuess6.setText("6. " + EMPTY);
 
+        currGuessNum = 0;
 
+        guessObjects = new ArrayList<Guess>();
+        guessObjects.add(new Guess(wordList));
+        guessObjects.get(0).setGuess("cares");
     }
 
     @Override
@@ -110,10 +115,10 @@ public class MainActivity extends AppCompatActivity
         currGuessNum = 0;
         guessObjects = new ArrayList<Guess>();
 
-        ArrayList<String> wordList = loadStrings();
+        wordList = loadStrings();
         guessObjects.add(new Guess(wordList));
         guessObjects.get(0).setGuess("cares");
-        Log.d("wordObj", "" + guessObjects.get(0).wordToScore("penis"));
+        Log.d("wordObj", "" + guessObjects.get(0).wordToScore("world"));
         Log.d("GuessNum: ----", "" + currGuessNum);
 
         textInput0 = findViewById(R.id.gridInput_00);
@@ -130,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         prevGuess5 = (TextView) findViewById(R.id.prevGuess5);
         prevGuess6 = (TextView) findViewById(R.id.prevGuess6);
 
-        myRoot = (LinearLayout) findViewById(R.id.nextGuessList);
+        nextGuessLinearLayout = (LinearLayout) findViewById(R.id.nextGuessList);
 
         enterGuess = findViewById(R.id.enterGuess);
         startOverButton = findViewById(R.id.startOver);
@@ -171,64 +176,81 @@ public class MainActivity extends AppCompatActivity
                     NotEnoughCharsDialogue popup = new NotEnoughCharsDialogue();
                     popup.show(getSupportFragmentManager(), null);
 
-                }
-                //This is how to insert a guess to the guess object, it will return false if the guess is not on the list of remaining words
-                else if (guessObjects.get(currGuessNum).setGuess(enteredWord.toLowerCase()) == false) {
-
-                    NotValidGuess popup = new NotValidGuess();
-                    popup.show(getSupportFragmentManager(), null);
-                } else {
-
-                    //How to insert the colors
-                    int colors[] = {colorNum0, colorNum1, colorNum2, colorNum3, colorNum4};
-                    guessObjects.get(currGuessNum).setColors(colors);
+                }else{
 
                     if (currGuessNum < 6) {
-                        guessObjects.add(new Guess(guessObjects.get(currGuessNum).prunedList()));
-                        currGuessNum++;
 
+                        //insert a guess into the new guess object, returns false if the guess is not in list of remaining words
+                        if (!guessObjects.get(currGuessNum).setGuess(enteredWord.toLowerCase())) {
 
-                        if (prevGuess1.getText().toString().contains(EMPTY)) {
-                            prevGuess1.setText("1. " + enteredWord);
-                        } else if (prevGuess2.getText().toString().contains(EMPTY)) {
-                            prevGuess2.setText("2. " + enteredWord);
-                        } else if (prevGuess3.getText().toString().contains(EMPTY)) {
-                            prevGuess3.setText("3. " + enteredWord);
-                        } else if (prevGuess4.getText().toString().contains(EMPTY)) {
-                            prevGuess4.setText("4. " + enteredWord);
-                        } else if (prevGuess5.getText().toString().contains(EMPTY)) {
-                            prevGuess5.setText("5. " + enteredWord);
-                        } else {
-                            prevGuess6.setText("6. " + enteredWord);
+                            NotValidGuess popup = new NotValidGuess();
+                            popup.show(getSupportFragmentManager(), null);
+                        }else{
+
+                            // pass colors to algorithm
+                            int colors[] = {colorNum0, colorNum1, colorNum2, colorNum3, colorNum4};
+                            guessObjects.get(currGuessNum).setColors(colors);
+
+                            //call the algorithm, create new guess object with new pruned word list
+                            guessObjects.add(new Guess(guessObjects.get(currGuessNum).prunedList()));
+                            currGuessNum++;
+
+                            if (prevGuess1.getText().toString().contains(EMPTY)) {
+                                prevGuess1.setText("1. " + enteredWord);
+                            } else if (prevGuess2.getText().toString().contains(EMPTY)) {
+                                prevGuess2.setText("2. " + enteredWord);
+                            } else if (prevGuess3.getText().toString().contains(EMPTY)) {
+                                prevGuess3.setText("3. " + enteredWord);
+                            } else if (prevGuess4.getText().toString().contains(EMPTY)) {
+                                prevGuess4.setText("4. " + enteredWord);
+                            } else if (prevGuess5.getText().toString().contains(EMPTY)) {
+                                prevGuess5.setText("5. " + enteredWord);
+                            } else {
+                                prevGuess6.setText("6. " + enteredWord);
+                            }
+
+                            String displayedInfo = "";
+
+                            //how to use my stuff
+                            //
+                            //
+                            //arraylist for getting a sorted list of the best words to get, length is how long you want it to be, if smaller than length
+                            //it will be as long as there are words left
+                            ArrayList<String> bestWords = guessObjects.get(currGuessNum).getSortedWords(1000);
+
+                            //to get percent you must use the hash, here is a corresponding arrayList
+                            //ArrayList<Float> scores = new ArrayList<Float>();
+
+                            nextGuessLinearLayout.removeAllViews();
+
+                            Float currScore;
+                            for (String currWord : bestWords) {
+
+                                //scores.add(guessObjects.get(currGuessNum).wordToScore(bestWords.get(i)));
+                                currScore = guessObjects.get(currGuessNum).wordToScore(currWord);
+
+                                TextView newTextView = new TextView(getApplicationContext());
+                                displayedInfo = currWord.toUpperCase() + " -> " + currScore.toString() + "%";
+                                newTextView.setText(displayedInfo);
+                                newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(BLACK_HEX)));
+                                newTextView.setTextSize(30);
+                                nextGuessLinearLayout.addView(newTextView);
+                            }
                         }
 
-                        String displayedInfo = "";
+                        {/*
+                            //you can also get sorted char[] for each letter based on score, position is where it is on the string
+                            char[] firstLetterScores = guessObjects.get(currGuessNum).getSortedLetters(0);
 
-                        //how to use my stuff
-                        //
-                        //
-                        //arraylist for getting a sorted list of the best words to get, length is how long you want it to be, if smaller than length
-                        //it will be as long as there are words left
-                        ArrayList<String> bestWords = guessObjects.get(currGuessNum).getSortedWords(25);
+                            //it is also easy to get the score of each letter, returns a percent (int for position in string, char for letter)
+                            float aLetterScore = guessObjects.get(currGuessNum).getLetterScore(0, 'a');
 
-                        //to get percent you must use the hash, here is a corresponding arrayList
-                        ArrayList<Float> scores = new ArrayList<Float>();
-                        for (int i = 0; i < bestWords.size(); i++) {
-                            scores.add(guessObjects.get(currGuessNum).wordToScore(bestWords.get(i)));
-                        }
-
-                        //you can also get sorted char[] for each letter based on score, position is where it is on the string
-                        char[] firstLetterScores = guessObjects.get(currGuessNum).getSortedLetters(0);
-
-                        //it is also easy to get the score of each letter, returns a percent (int for position in string, char for letter)
-                        float aLetterScore = guessObjects.get(currGuessNum).getLetterScore(0, 'a');
-
-                        //so you can do something like
-                        for (int i = 0; i < firstLetterScores.length; i++) {
-                            Log.d("chance of: " + firstLetterScores[i], " ---> " + guessObjects.get(currGuessNum).getLetterScore(0, firstLetterScores[i]));
-                        }
-                        //which should print the odds from highest to least of the first letter in the string
-
+                            //so you can do something like
+                            for (int i = 0; i < firstLetterScores.length; i++) {
+                                Log.d("chance of: " + firstLetterScores[i], " ---> " + guessObjects.get(currGuessNum).getLetterScore(0, firstLetterScores[i]));
+                            }
+                            //which should print the odds from highest to least of the first letter in the string
+                        */}
 
                         //get the words and percentage from word list and display them
                         /* for word in guess object
