@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity
 
                     } else {
 
-                        gameOverDialogue popup = new gameOverDialogue();
+                        GameOverDialogue popup = new GameOverDialogue();
                         popup.show(getSupportFragmentManager(), null);
                     }
 
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                helpButtonDialogue popup = new helpButtonDialogue();
+                HelpButtonDialogue popup = new HelpButtonDialogue();
                 popup.show(getSupportFragmentManager(), null);
             }
         });
