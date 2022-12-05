@@ -8,9 +8,70 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
 
+
+
+
+                                                                                                    
+//
+//                                 (*
+//                                 //
+//                                %%/*
+//                               .##%*/                                *#
+//                  /(//*        #(#%%/,      ,/*,,.                 /*#,
+//                //((((*//*     ,((#%////////////////////        *//(%(
+//              /***/##(/*/**,    ((#(///*///////////////////   ***(%%/
+//            .***//(   #(//***. *#(///**///(****/**////////**//(/%##,
+//           /***//       ##(///(.#//*/**/#/(///**///*//////*/#((%%#%         ////
+//          (/*/*           .###(%/(#*((/*%((/#//#//***/*/////(&%((.      ,/(((/((/
+//         (//(                %%&#/#(/*/#%%##(*(/#//(,*%(/////#/(    ///((((#%#((//,
+//        #//*                   &%%/(%(%%(/(//*&%#(##(/(/*//**##* (///((((####,##///,
+//        /*/#                      %%#(@*////(%(***//(//((#((%&(((#(#####*       #//**
+//       #/(##/*                     .%%#/*/*(%%((((#*%%%%#(#(((((#%#              #(/**
+//       /#/(  %(/                     &(////%##%(#%%&##%##%###(%                    (***
+//      .((#/*                         /#(/####((/((%%%%#&%((/(/                     .#///
+//       &(# /*                         @#(/(/*((#/(%//#/,,,**%%                       (///
+//      /                                %#(%*,,##%%#//(/,/**###,                     /((///,
+//                                       &#%####&&%###%%%%#%%%/#                     %(((((((*
+//                          ******/       &&%(%     %%#(%((/%(%%                    #%  %/#*.#(
+//                        ,*,,,,,*,,,,*,            %###(//##(#*                    %  %(. /(/#
+//                        /,*,*,***/(*,,,,*.       %###(((##(#&                       %#  %(
+//                       (/,,,*,/////***,,,,*,,**/*/((%#%%/#%#(
+//                      (/(*/*,/(( *#(/****,,,,,,,**,*,,,,,,,***
+//                     .(/(,(*,//#    ((((//,,,,******,,,,,,,,**/*
+//                     //*(**/,/*/       ((((******,******,,,,,,**/   .##
+//         ,( ,/##((   ((*////*/*            //(((//(**////**,,,,*/( **/##
+//          #((/*####  /*/*/(//**                        (******,,//#*/(%##
+//           /%#%%%#%%  (*(*/(//*                           /*,**,,/(/(  %##
+//             #%%%%(&%#######(                               (*,*,*#(    &%%%%
+//               ,#%&&%%%%##(#(                                *((((#      /
+//                   #%%%&&&&&#,
+//                       ,&&&&&
+//
+//
+//
+//   ▄██████▄   ▄██████▄  ▀█████████▄   ▄█        ▄█  ███▄▄▄▄
+//  ███    ███ ███    ███   ███    ███ ███       ███  ███▀▀▀██▄
+//  ███    █▀  ███    ███   ███    ███ ███       ███▌ ███   ███
+// ▄███        ███    ███  ▄███▄▄▄██▀  ███       ███▌ ███   ███
+//▀▀███ ████▄  ███    ███ ▀▀███▀▀▀██▄  ███       ███▌ ███   ███
+//  ███    ███ ███    ███   ███    ██▄ ███       ███  ███   ███
+//  ███    ███ ███    ███   ███    ███ ███▌    ▄ ███  ███   ███
+//  ████████▀   ▀██████▀  ▄█████████▀  █████▄▄██ █▀    ▀█   █▀
+//                                     ▀
+
+
+
+
+
+
+
+
 public class Guess {
+    //An arraylist of Word objects that stores a score value
     ArrayList<Word> wordsLeft;
+    //An array of hash tables for each letter of each of the 5 positions
     ArrayList<Hashtable<Character, Integer>> letterMaps;
+    //a private array for making the pruned array
     private ArrayList<String> words;
     String guess;
     int[] colors;
@@ -41,16 +102,78 @@ public class Guess {
         guess = "";
     }
 
-    void setColors(int colorInput[]) {
-        for (int i = 0; i < 5; i++) {
-            colors[i] = colorInput[i];
+    //sets the colors in an int array, returns true if valid, false if not
+    boolean setColors(int colorInput[]) {
+        if(colorInput.length == 5) {
+            for (int i = 0; i < 5; i++) {
+                if(colorInput[i] >=0 && colorInput[i] <= 2) {
+                    colors[i] = colorInput[i];
+                }
+                else{
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    //sets the guess string, if there is no match it returns false
+    boolean setGuess(String guessInput) {
+        for(int i = 0; i < words.size(); i++){
+            if(guessInput.equals(words.get(i))){
+                guess = guessInput;
+                return true;
+            }
+        }
+        return false;
+    }
+    public ArrayList<String> getSortedWords(int length){
+        ArrayList<String> wordsByScore = new ArrayList<String>();
+        int len = length;
+        if(wordsLeft.size()< length){
+            len = wordsLeft.size();
+        }
+        for(int i = 0; i< len;i++){
+            wordsByScore.add(wordsLeft.get(i).getWord());
+        }
+        return wordsByScore;
+    }
+
+    //returns a sorted array of chars from most frequent letter to least at given position
+    //use the hashes to get their values
+    char[] getSortedLetters(int position) {
+
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        insertionSort(alphabet,position);
+        return alphabet;
+    }
+    void insertionSort(char arr[],int position)
+    {
+        for(int i = 1; i < arr.length; i++) {
+            int j = i-1;
+            float key = getLetterScore(position,arr[i]);
+            char temp = arr[i];
+            while(j>= 0 && getLetterScore(position,arr[j]) < key) {
+                arr[j+1]=arr[j];
+                j = j - 1;
+            }
+            arr[j+1] = temp;
         }
     }
 
-    void setGuess(String guessInput) {
-        guess = guessInput;
+
+
+    //gets the score hash of a letter based on position in the word
+    //example in how good is an 'g' as the last letter pos = 4, char = 'g'
+    //returns a percent of how frequent that letter is
+    float getLetterScore(int position, char letter){
+        float score = 0;
+        score = intToPercent(letterMaps.get(position).get(letter));
+        return score;
     }
 
+    //returns a list of potential words after color and guess input, returns a list of words
     ArrayList<String> prunedList() {
         ArrayList<String> notElimed = new ArrayList<String>();
         for (int i = 0; i < words.size(); i++) {
@@ -133,6 +256,9 @@ public class Guess {
         return notElimed;
     }
 
+
+
+    //helper function that scores a word based on frequency
     float wordToScore(String wordInput) {
         float score = 0;
         char[] wrdArr = wordInput.toCharArray();
@@ -143,10 +269,10 @@ public class Guess {
         return score;
     }
 
+    //a helper function that turns a int frequency into percent
     float intToPercent(int inputInt) {
         float percent = 0;
         percent = ((float) inputInt) / (float) wordsLeft.size();
-        // System.out.println(inputInt);
         return percent;
     }
 
