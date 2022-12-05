@@ -131,22 +131,24 @@ public class Guess {
 
     //returns a sorted array of chars from most frequent letter to least at given position
     //use the hashes to get their values
-    ArrayList<Character> getSortedLetters(int position){
-        ArrayList<Character> characters = new ArrayList<Character>();
+    char[] getSortedLetters(int position) {
+
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        characters.add(alphabet[0]);
-        for(int i = 1; i < alphabet.length; i++){
-            for(int j = 0; i < characters.size(); j++){
-                if(getLetterScore(position,characters.get(j)) < getLetterScore(position,alphabet[i])){
-                    characters.add(j,alphabet[i]);
-                    break;
-                }
-                else if(j == characters.size()-1) {
-                    characters.add(alphabet[i]);
-                }
+        insertionSort(alphabet,position);
+        return alphabet;
+    }
+    void insertionSort(char arr[],int position)
+    {
+        for(int i = 1; i < arr.length; i++) {
+            int j = i-1;
+            float key = getLetterScore(position,arr[i]);
+            char temp = arr[i];
+            while(j>= 0 && getLetterScore(position,arr[j]) < key) {
+                arr[j+1]=arr[j];
+                j = j - 1;
             }
+            arr[j+1] = temp;
         }
-        return characters;
     }
 
 
