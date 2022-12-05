@@ -1,7 +1,6 @@
 package com.example.testactivity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,11 +26,11 @@ public class MainActivity extends AppCompatActivity
 
     Integer currGuessNum = 0;
 
-    Integer colorNum0 = 0;
-    Integer colorNum1 = 0;
-    Integer colorNum2 = 0;
-    Integer colorNum3 = 0;
-    Integer colorNum4 = 0;
+    int colorNum0 = 0;
+    int colorNum1 = 0;
+    int colorNum2 = 0;
+    int colorNum3 = 0;
+    int colorNum4 = 0;
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -225,7 +224,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                helpButtonDialogue popup = new helpButtonDialogue();
+                HelpButtonDialogue popup = new HelpButtonDialogue();
                 popup.show(getSupportFragmentManager(), null);
             }
         });
@@ -336,7 +335,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                String colors = "";
                 String enteredWord = "";
 
                 //get the characters from the input grid
@@ -364,8 +362,7 @@ public class MainActivity extends AppCompatActivity
 
                         currGuessNum++;
 
-                        colors = colorNum0.toString() + colorNum1.toString() + colorNum2.toString() +
-                                colorNum3.toString() + colorNum4.toString();
+                        int colorArr[] = {colorNum0, colorNum1, colorNum2, colorNum3, colorNum4};
 
                         Guess algo = new Guess(wordList);
 
@@ -397,11 +394,11 @@ public class MainActivity extends AppCompatActivity
 
                     }else{
 
-                        gameOverDialogue popup = new gameOverDialogue();
+                        GameOverDialogue popup = new GameOverDialogue();
                         popup.show(getSupportFragmentManager(), null);
                     }
 
-                    //clear characters and reset colors
+                    //clear characters and reset colorsStr
                     char0.setText("");
                     char0.clearFocus();
                     textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));

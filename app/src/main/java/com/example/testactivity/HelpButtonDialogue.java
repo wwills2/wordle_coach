@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 
-public class helpButtonDialogue extends DialogFragment {
+public class HelpButtonDialogue extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
