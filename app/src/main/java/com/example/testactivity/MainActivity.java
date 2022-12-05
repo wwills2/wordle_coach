@@ -8,11 +8,14 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.os.Bundle;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+
 import androidx.fragment.app.DialogFragment;
 
 import java.io.BufferedReader;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener{
+        implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener {
 
     Integer currGuessNum = 0;
 
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity
     Button startOverButton = null;
     Button helpButton = null;
     ArrayList<Guess> guessObjects;
+
     @Override
     public void onConfirmStartOverDialogueYes(DialogFragment dialog) {
 
@@ -91,8 +95,8 @@ public class MainActivity extends AppCompatActivity
         prevGuess6.setText("6. " + EMPTY);
 
 
-
     }
+
     @Override
     public void onConfirmStartOverDialogueNo(DialogFragment dialog) {
         //do nothing
@@ -109,8 +113,8 @@ public class MainActivity extends AppCompatActivity
         ArrayList<String> wordList = loadStrings();
         guessObjects.add(new Guess(wordList));
         guessObjects.get(0).setGuess("cares");
-        Log.d("wordObj",""+guessObjects.get(0).wordToScore("penis"));
-        Log.d("GuessNum: ----", ""+currGuessNum);
+        Log.d("wordObj", "" + guessObjects.get(0).wordToScore("penis"));
+        Log.d("GuessNum: ----", "" + currGuessNum);
 
         textInput0 = findViewById(R.id.gridInput_00);
         textInput1 = findViewById(R.id.gridInput_01);
@@ -132,20 +136,16 @@ public class MainActivity extends AppCompatActivity
         startOverButton = findViewById(R.id.startOver);
         helpButton = findViewById(R.id.helpButton);
 
-            inputWrapping();
-
-
-            longPresses();
-
-
+        inputWrapping();
+        longPresses();
         utilButtons();
         submitGuess();
 
     }
 
 
-    public void submitGuess(){
-        enterGuess.setOnClickListener(new View.OnClickListener(){
+    public void submitGuess() {
+        enterGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -172,19 +172,20 @@ public class MainActivity extends AppCompatActivity
                     popup.show(getSupportFragmentManager(), null);
 
                 }
-                else if(guessObjects.get(currGuessNum).setGuess(enteredWord.toLowerCase()) == false){
+                //This is how to insert a guess to the guess object, it will return false if the guess is not on the list of remaining words
+                else if (guessObjects.get(currGuessNum).setGuess(enteredWord.toLowerCase()) == false) {
+
                     NotValidGuess popup = new NotValidGuess();
                     popup.show(getSupportFragmentManager(), null);
-                }
-                else{
-                    int colors [] = {colorNum0,colorNum1,colorNum2,colorNum3,colorNum4};
+                } else {
+
+                    //How to insert the colors
+                    int colors[] = {colorNum0, colorNum1, colorNum2, colorNum3, colorNum4};
                     guessObjects.get(currGuessNum).setColors(colors);
-                    if (currGuessNum < 6){
+
+                    if (currGuessNum < 6) {
                         guessObjects.add(new Guess(guessObjects.get(currGuessNum).prunedList()));
                         currGuessNum++;
-
-
-
 
 
                         if (prevGuess1.getText().toString().contains(EMPTY)) {
@@ -212,7 +213,7 @@ public class MainActivity extends AppCompatActivity
 
                         //to get percent you must use the hash, here is a corresponding arrayList
                         ArrayList<Float> scores = new ArrayList<Float>();
-                        for(int i = 0; i < bestWords.size(); i++){
+                        for (int i = 0; i < bestWords.size(); i++) {
                             scores.add(guessObjects.get(currGuessNum).wordToScore(bestWords.get(i)));
                         }
 
@@ -220,14 +221,13 @@ public class MainActivity extends AppCompatActivity
                         char[] firstLetterScores = guessObjects.get(currGuessNum).getSortedLetters(0);
 
                         //it is also easy to get the score of each letter, returns a percent (int for position in string, char for letter)
-                        float aLetterScore = guessObjects.get(currGuessNum).getLetterScore(0,'a');
+                        float aLetterScore = guessObjects.get(currGuessNum).getLetterScore(0, 'a');
 
                         //so you can do something like
-                        for(int i = 0; i < firstLetterScores.length; i++){
-                            Log.d("chance of: "+firstLetterScores[i]," ---> "+guessObjects.get(currGuessNum).getLetterScore(0,firstLetterScores[i]));
+                        for (int i = 0; i < firstLetterScores.length; i++) {
+                            Log.d("chance of: " + firstLetterScores[i], " ---> " + guessObjects.get(currGuessNum).getLetterScore(0, firstLetterScores[i]));
                         }
                         //which should print the odds from highest to least of the first letter in the string
-
 
 
                         //get the words and percentage from word list and display them
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity
 
                          */
 
-                    }else{
+                    } else {
 
                         gameOverDialogue popup = new gameOverDialogue();
                         popup.show(getSupportFragmentManager(), null);
@@ -273,13 +273,14 @@ public class MainActivity extends AppCompatActivity
                     textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                     colorNum4 = 0;
 
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
         });
     }
-    public void utilButtons(){
+
+    public void utilButtons() {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         //This is where you call start over to reset board
-        startOverButton.setOnClickListener(new View.OnClickListener(){
+        startOverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -299,19 +300,20 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    public void longPresses(){
+
+    public void longPresses() {
         textInput0.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View view) {
                 colorNum0 += 1;
-                if(colorNum0 % 3 == 0){ // if toggle = 0 -> change to orange
+                if (colorNum0 % 3 == 0) { // if toggle = 0 -> change to orange
                     textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-                if(colorNum0 % 3 == 1){ // if toggle = 0 -> change to orange
+                if (colorNum0 % 3 == 1) { // if toggle = 0 -> change to orange
                     textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
                 }
-                if(colorNum0 % 3 == 2){ // if toggle = 0 -> change to orange
+                if (colorNum0 % 3 == 2) { // if toggle = 0 -> change to orange
                     textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
                 }
                 return false;
@@ -323,13 +325,13 @@ public class MainActivity extends AppCompatActivity
             public boolean onLongClick(View view) {
 
                 colorNum1 += 1;
-                if(colorNum1 % 3 == 0){ // if toggle = 0 -> change to orange
+                if (colorNum1 % 3 == 0) { // if toggle = 0 -> change to orange
                     textInput1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-                if(colorNum1 % 3 == 1){ // if toggle = 0 -> change to orange
+                if (colorNum1 % 3 == 1) { // if toggle = 0 -> change to orange
                     textInput1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
                 }
-                if(colorNum1 % 3 == 2){ // if toggle = 0 -> change to orange
+                if (colorNum1 % 3 == 2) { // if toggle = 0 -> change to orange
                     textInput1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
                 }
                 return false;
@@ -341,13 +343,13 @@ public class MainActivity extends AppCompatActivity
             public boolean onLongClick(View view) {
                 //code that you want do when pressed
                 colorNum2 += 1;
-                if(colorNum2 % 3 == 0){ // if toggle = 0 -> change to orange
+                if (colorNum2 % 3 == 0) { // if toggle = 0 -> change to orange
                     textInput2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-                if(colorNum2 % 3 == 1){ // if toggle = 0 -> change to orange
+                if (colorNum2 % 3 == 1) { // if toggle = 0 -> change to orange
                     textInput2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
                 }
-                if(colorNum2 % 3 == 2){ // if toggle = 0 -> change to orange
+                if (colorNum2 % 3 == 2) { // if toggle = 0 -> change to orange
                     textInput2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
                 }
                 return false;
@@ -359,13 +361,13 @@ public class MainActivity extends AppCompatActivity
             public boolean onLongClick(View view) {
                 //code that you want do when pressed
                 colorNum3 += 1;
-                if(colorNum3 % 3 == 0){ // if toggle = 0 -> change to orange
+                if (colorNum3 % 3 == 0) { // if toggle = 0 -> change to orange
                     textInput3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-                if(colorNum3 % 3 == 1){ // if toggle = 0 -> change to orange
+                if (colorNum3 % 3 == 1) { // if toggle = 0 -> change to orange
                     textInput3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
                 }
-                if(colorNum3 % 3 == 2){ // if toggle = 0 -> change to orange
+                if (colorNum3 % 3 == 2) { // if toggle = 0 -> change to orange
                     textInput3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
                 }
                 return false;
@@ -377,20 +379,21 @@ public class MainActivity extends AppCompatActivity
             public boolean onLongClick(View view) {
                 //code that you want do when pressed
                 colorNum4 += 1;
-                if(colorNum4 % 3 == 0){ // if toggle = 0 -> change to orange
+                if (colorNum4 % 3 == 0) { // if toggle = 0 -> change to orange
                     textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
                 }
-                if(colorNum4 % 3 == 1){ // if toggle = 0 -> change to orange
+                if (colorNum4 % 3 == 1) { // if toggle = 0 -> change to orange
                     textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(YELLOW_HEX)));
                 }
-                if(colorNum4 % 3 == 2){ // if toggle = 0 -> change to orange
+                if (colorNum4 % 3 == 2) { // if toggle = 0 -> change to orange
                     textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GREEN_HEX)));
                 }
                 return false;
             }
         });
     }
-    public void inputWrapping(){
+
+    public void inputWrapping() {
 
         textInput0.addTextChangedListener(new TextWatcher() {
             @Override
@@ -478,8 +481,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(textInput0.getText().toString() .length() == 0 && keyCode == event.KEYCODE_DEL)
-                {
+                if (textInput0.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL) {
                     textInput0.setText("");
 
                 }
@@ -490,8 +492,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(textInput1.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
-                {
+                if (textInput1.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL) {
                     textInput1.setText("");
                     textInput1.clearFocus();
                     textInput0.requestFocus();
@@ -505,8 +506,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(textInput2.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
-                {
+                if (textInput2.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL) {
                     textInput2.setText("");
                     textInput2.clearFocus();
                     textInput1.requestFocus();
@@ -519,8 +519,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(textInput3.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
-                {
+                if (textInput3.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL) {
                     textInput3.setText("");
                     textInput3.clearFocus();
                     textInput2.requestFocus();
@@ -533,12 +532,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(textInput4.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL)
-                {
+                if (textInput4.getText().toString().length() == 0 && keyCode == event.KEYCODE_DEL) {
                     textInput4.setText("");
                     textInput4.clearFocus();
                     textInput3.requestFocus();
-                   // textInput3.setText("");
+                    // textInput3.setText("");
                 }
                 return false;
             }
@@ -547,7 +545,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    ArrayList<String> loadStrings(){
+    ArrayList<String> loadStrings() {
         try {
 
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(this.getResources().getAssets().open("valid-wordle-words.txt")));
