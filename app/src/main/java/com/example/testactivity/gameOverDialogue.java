@@ -6,12 +6,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 
-public class NotEnoughCharsDialogue extends DialogFragment {
+public class gameOverDialogue extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Please enter 5 letters")
+        builder.setMessage("This game is over because you have entered the maximum number of guesses\n\n" +
+                        "Please tap the \"Start Over\" Button.")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }

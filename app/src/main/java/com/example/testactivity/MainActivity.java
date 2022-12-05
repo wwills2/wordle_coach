@@ -1,11 +1,11 @@
 package com.example.testactivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,18 +13,15 @@ import android.view.View;
 import android.os.Bundle;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-
-
+import androidx.fragment.app.DialogFragment;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+        //implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener{
 
     Integer colorNumTouch = 0;
 
@@ -36,39 +33,50 @@ public class MainActivity extends AppCompatActivity {
     Integer colorNum3 = 0;
     Integer colorNum4 = 0;
 
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    final String YELLOW_HEX = "#FFA500";
+    final String GRAY_HEX = "#D3D3D3";
+    final String GREEN_HEX = "#2F8E3C";
+    final String BLACK_HEX = "#000000";
+
+    final String EMPTY = "Guess";
+
+    /*
+    EditText textInput0 = null;
+    EditText textInput1 = null;
+    EditText textInput2 = null;
+    EditText textInput3 = null;
+    EditText textInput4 = null;
+
+    //Previous guess inits
+    TextView prevGuess1 = null;
+    TextView prevGuess2 = null;
+    TextView prevGuess3 = null;
+    TextView prevGuess4 = null;
+    TextView prevGuess5 = null;
+    TextView prevGuess6 = null;
+
+    LinearLayout myRoot = null;
+
+    Button enterGuess = null;
+    Button startOverButton = null;
+    Button helpButton = null;
+
+     */
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        final String YELLOW_HEX = "#FFA500";
-        final String GRAY_HEX = "#D3D3D3";
-        final String GREEN_HEX = "#2F8E3C";
-        final String BLACK_HEX = "#000000";
 
-        final String EMPTY = "Guess";
+        ArrayList<Guess> guessObjects = new ArrayList<Guess>();
 
         ArrayList<String> wordList = loadStrings();
-
-
-
         Log.d("words: " , ""+wordList.size());
 
-        //ZAN ****************************************************************************   USE THIS FOR INSERTING INTO THE SCROLL VIEW
-        /*
-                TextView newTextView = new TextView(getApplicationContext());
-                newTextView.setText("wdawd");
-                newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(BLACK_HEX)));
-                newTextView.setTextSize(15);
-                myRoot.addView(newTextView);
-         */
-
-        /*final Button colorButton0 = findViewById(R.id.gridColor_00);
-        final Button colorButton1 = findViewById(R.id.gridColor_01);
-        final Button colorButton2 = findViewById(R.id.gridColor_02);
-        final Button colorButton3 = findViewById(R.id.gridColor_03);
-        final Button colorButton4 = findViewById(R.id.gridColor_04);*/
         final EditText textInput0 = findViewById(R.id.gridInput_00);
         final EditText textInput1 = findViewById(R.id.gridInput_01);
         final EditText textInput2 = findViewById(R.id.gridInput_02);
@@ -196,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
         startOverButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                ConfirmStartOverDialogue popup = new ConfirmStartOverDialogue();
+                //popup.show(getSupportFragmentManager(), null);
+
                 //remove scroll view
                 myRoot.removeAllViews();
 
@@ -334,6 +346,8 @@ public class MainActivity extends AppCompatActivity {
                 enteredWord = char0.getText().toString() + char1.getText().toString() +
                         char2.getText().toString() + char3.getText().toString() + char4.getText().toString();
 
+                enteredWord = enteredWord.toUpperCase();
+
                 //check that word is 5 chars long, if not, display popup
                 if (enteredWord.length() < 5) {
 
@@ -342,30 +356,46 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
 
-                    currGuessNum++;
+                    if (currGuessNum < 6){
 
-                    colors = colorNum0.toString() + colorNum1.toString() + colorNum2.toString() +
-                            colorNum3.toString() + colorNum4.toString();
+                        currGuessNum++;
 
-                    // this will not stay here. it's just a skeleton for updating previous guesses
+                        colors = colorNum0.toString() + colorNum1.toString() + colorNum2.toString() +
+                                colorNum3.toString() + colorNum4.toString();
 
+                        Guess algo = new Guess(wordList);
 
-                    // interface to pass data to jamie's algo will go here
+                        if (prevGuess1.getText().toString().contains(EMPTY)) {
+                            prevGuess1.setText("1. " + enteredWord);
+                        } else if (prevGuess2.getText().toString().contains(EMPTY)) {
+                            prevGuess2.setText("2. " + enteredWord);
+                        } else if (prevGuess3.getText().toString().contains(EMPTY)) {
+                            prevGuess3.setText("3. " + enteredWord);
+                        } else if (prevGuess4.getText().toString().contains(EMPTY)) {
+                            prevGuess4.setText("4. " + enteredWord);
+                        } else if (prevGuess5.getText().toString().contains(EMPTY)) {
+                            prevGuess5.setText("5. " + enteredWord);
+                        } else {
+                            prevGuess6.setText("6. " + enteredWord);
+                        }
 
-                    if (prevGuess1.getText().toString().contains(EMPTY)) {
-                        prevGuess1.setText("1. " + enteredWord);
-                    } else if (prevGuess2.getText().toString().contains(EMPTY)) {
-                        prevGuess2.setText("2. " + enteredWord);
-                    } else if (prevGuess3.getText().toString().contains(EMPTY)) {
-                        prevGuess3.setText("3. " + enteredWord);
-                    } else if (prevGuess4.getText().toString().contains(EMPTY)) {
-                        prevGuess4.setText("4. " + enteredWord);
-                    } else if (prevGuess5.getText().toString().contains(EMPTY)) {
-                        prevGuess5.setText("5. " + enteredWord);
-                    } else {
-                        prevGuess6.setText("6. " + enteredWord);
+                        String displayedInfo = "";
+                        //get the words and percentage from word list and display them
+                        /* for word in guess object
+                            TextView newTextView = new TextView(getApplicationContext());
+                            String displayedInfo = MAKE DISPLAY STRING HERE;
+                            newTextView.setText(displayedInfo);
+                            newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(BLACK_HEX)));
+                            newTextView.setTextSize(15);
+                            myRoot.addView(newTextView);
+
+                         */
+
+                    }else{
+
+                        gameOverDialogue popup = new gameOverDialogue();
+                        popup.show(getSupportFragmentManager(), null);
                     }
-                    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                     //clear characters and reset colors
                     char0.setText("");
@@ -400,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void inputWrapping(EditText textInput0,EditText textInput1,EditText textInput2,EditText textInput3,EditText textInput4){
+    public void inputWrapping(EditText textInput0, EditText textInput1,EditText textInput2,EditText textInput3,EditText textInput4){
 
         textInput0.addTextChangedListener(new TextWatcher() {
             @Override
