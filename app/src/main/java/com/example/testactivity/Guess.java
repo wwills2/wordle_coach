@@ -67,8 +67,11 @@ import java.util.Hashtable;
 
 
 public class Guess {
+    //An arraylist of Word objects that stores a score value
     ArrayList<Word> wordsLeft;
+    //An array of hash tables for each letter of each of the 5 positions
     ArrayList<Hashtable<Character, Integer>> letterMaps;
+    //a private array for making the pruned array
     private ArrayList<String> words;
     String guess;
     int[] colors;
@@ -99,16 +102,65 @@ public class Guess {
         guess = "";
     }
 
-    void setColors(int colorInput[]) {
-        for (int i = 0; i < 5; i++) {
-            colors[i] = colorInput[i];
+    //sets the colors in an int array, returns true if valid, false if not
+    boolean setColors(int colorInput[]) {
+        if(colorInput.length == 5) {
+            for (int i = 0; i < 5; i++) {
+                if(colorInput[i] >=0 && colorInput[i] <= 2) {
+                    colors[i] = colorInput[i];
+                }
+                else{
+                    return false;
+                }
+            }
+            return true;
         }
+        return false;
     }
 
-    void setGuess(String guessInput) {
-        guess = guessInput;
+    //sets the guess string, if there is no match it returns false
+    boolean setGuess(String guessInput) {
+        for(int i = 0; i < words.size(); i++){
+            if(guessInput == words.get(i)){
+                guess = guessInput;
+                return true;
+            }
+        }
+        return false;
     }
 
+    //returns a sorted array of chars from most frequent letter to least at given position
+    //use the hashes to get their values
+    ArrayList<Character> getSortedLetters(int position){
+        ArrayList<Character> characters = new ArrayList<Character>();
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        characters.add(alphabet[0]);
+        for(int i = 1; i < alphabet.length; i++){
+            for(int j = 0; i < characters.size(); j++){
+                if(getLetterScore(position,characters.get(j)) < getLetterScore(position,alphabet[i])){
+                    characters.add(j,alphabet[i]);
+                    break;
+                }
+                else if(j == characters.size()-1) {
+                    characters.add(alphabet[i]);
+                }
+            }
+        }
+        return characters;
+    }
+
+
+
+    //gets the score hash of a letter based on position in the word
+    //example in how good is an 'g' as the last letter pos = 4, char = 'g'
+    //returns a percent of how frequent that letter is
+    float getLetterScore(int position, char letter){
+        float score = 0;
+        score = intToPercent(letterMaps.get(position).get(letter));
+        return score;
+    }
+
+    //returns a list of potential words after color and guess input, returns a list of words
     ArrayList<String> prunedList() {
         ArrayList<String> notElimed = new ArrayList<String>();
         for (int i = 0; i < words.size(); i++) {
@@ -191,6 +243,9 @@ public class Guess {
         return notElimed;
     }
 
+
+
+    //helper function that scores a word based on frequency
     float wordToScore(String wordInput) {
         float score = 0;
         char[] wrdArr = wordInput.toCharArray();
@@ -201,10 +256,10 @@ public class Guess {
         return score;
     }
 
+    //a helper function that turns a int frequency into percent
     float intToPercent(int inputInt) {
         float percent = 0;
         percent = ((float) inputInt) / (float) wordsLeft.size();
-        // System.out.println(inputInt);
         return percent;
     }
 
