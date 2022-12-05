@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
-        //implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener{
+public class MainActivity extends AppCompatActivity
+        implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener{
 
     Integer colorNumTouch = 0;
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
 
     final String EMPTY = "Guess";
 
-    /*
+
     EditText textInput0 = null;
     EditText textInput1 = null;
     EditText textInput2 = null;
@@ -63,8 +63,39 @@ public class MainActivity extends AppCompatActivity{
     Button startOverButton = null;
     Button helpButton = null;
 
-     */
+    @Override
+    public void onConfirmStartOverDialogueYes(DialogFragment dialog) {
 
+        //remove scroll view
+        myRoot.removeAllViews();
+
+        //remove colors and text
+        textInput0.setText("");
+        textInput1.setText("");
+        textInput2.setText("");
+        textInput3.setText("");
+        textInput4.setText("");
+
+        textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+
+        //Clear list of guesses Here
+        prevGuess1.setText("1. " + EMPTY);
+        prevGuess2.setText("2. " + EMPTY);
+        prevGuess3.setText("3. " + EMPTY);
+        prevGuess4.setText("4. " + EMPTY);
+        prevGuess5.setText("5. " + EMPTY);
+        prevGuess6.setText("6. " + EMPTY);
+
+        currGuessNum = 0;
+    }
+    @Override
+    public void onConfirmStartOverDialogueNo(DialogFragment dialog) {
+        //do nothing
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,28 +108,27 @@ public class MainActivity extends AppCompatActivity{
         ArrayList<String> wordList = loadStrings();
         Log.d("words: " , ""+wordList.size());
 
-        final EditText textInput0 = findViewById(R.id.gridInput_00);
-        final EditText textInput1 = findViewById(R.id.gridInput_01);
-        final EditText textInput2 = findViewById(R.id.gridInput_02);
-        final EditText textInput3 = findViewById(R.id.gridInput_03);
-        final EditText textInput4 = findViewById(R.id.gridInput_04);
+        textInput0 = findViewById(R.id.gridInput_00);
+        textInput1 = findViewById(R.id.gridInput_01);
+        textInput2 = findViewById(R.id.gridInput_02);
+        textInput3 = findViewById(R.id.gridInput_03);
+        textInput4 = findViewById(R.id.gridInput_04);
 
         //Previous guess inits
-        TextView prevGuess1 = (TextView) findViewById(R.id.prevGuess1);
-        TextView prevGuess2 = (TextView) findViewById(R.id.prevGuess2);
-        TextView prevGuess3 = (TextView) findViewById(R.id.prevGuess3);
-        TextView prevGuess4 = (TextView) findViewById(R.id.prevGuess4);
-        TextView prevGuess5 = (TextView) findViewById(R.id.prevGuess5);
-        TextView prevGuess6 = (TextView) findViewById(R.id.prevGuess6);
+        prevGuess1 = (TextView) findViewById(R.id.prevGuess1);
+        prevGuess2 = (TextView) findViewById(R.id.prevGuess2);
+        prevGuess3 = (TextView) findViewById(R.id.prevGuess3);
+        prevGuess4 = (TextView) findViewById(R.id.prevGuess4);
+        prevGuess5 = (TextView) findViewById(R.id.prevGuess5);
+        prevGuess6 = (TextView) findViewById(R.id.prevGuess6);
 
-        LinearLayout myRoot = (LinearLayout) findViewById(R.id.nextGuessList);
+        myRoot = (LinearLayout) findViewById(R.id.nextGuessList);
 
-        final Button enterGuess = findViewById(R.id.enterGuess);
-        final Button startOverButton = findViewById(R.id.startOver);
-        final Button helpButton = findViewById(R.id.helpButton);
+        enterGuess = findViewById(R.id.enterGuess);
+        startOverButton = findViewById(R.id.startOver);
+        helpButton = findViewById(R.id.helpButton);
 
         inputWrapping(textInput0, textInput1, textInput2, textInput3, textInput4);
-
 
         textInput0.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -206,33 +236,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
 
                 ConfirmStartOverDialogue popup = new ConfirmStartOverDialogue();
-                //popup.show(getSupportFragmentManager(), null);
-
-                //remove scroll view
-                myRoot.removeAllViews();
-
-                //remove colors and text
-                textInput0.setText("");
-                textInput1.setText("");
-                textInput2.setText("");
-                textInput3.setText("");
-                textInput4.setText("");
-
-                textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
-                textInput1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
-                textInput2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
-                textInput3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
-                textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
-
-                //Clear list of guesses Here
-                prevGuess1.setText("1. " + EMPTY);
-                prevGuess2.setText("2. " + EMPTY);
-                prevGuess3.setText("3. " + EMPTY);
-                prevGuess4.setText("4. " + EMPTY);
-                prevGuess5.setText("5. " + EMPTY);
-                prevGuess6.setText("6. " + EMPTY);
-
-                currGuessNum = 0;
+                popup.show(getSupportFragmentManager(), null);
             }
         });
 
