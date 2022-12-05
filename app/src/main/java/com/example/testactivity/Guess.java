@@ -121,12 +121,23 @@ public class Guess {
     //sets the guess string, if there is no match it returns false
     boolean setGuess(String guessInput) {
         for(int i = 0; i < words.size(); i++){
-            if(guessInput == words.get(i)){
+            if(guessInput.equals(words.get(i))){
                 guess = guessInput;
                 return true;
             }
         }
         return false;
+    }
+    public ArrayList<String> getSortedWords(int length){
+        ArrayList<String> wordsByScore = new ArrayList<String>();
+        int len = length;
+        if(wordsLeft.size()< length){
+            len = wordsLeft.size();
+        }
+        for(int i = 0; i< len;i++){
+            wordsByScore.add(wordsLeft.get(i).getWord());
+        }
+        return wordsByScore;
     }
 
     //returns a sorted array of chars from most frequent letter to least at given position
