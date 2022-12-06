@@ -23,7 +23,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements ConfirmStartOverDialogue.ConfirmStartOveDialogListener {
+        implements
+        ConfirmStartOverDialogue.ConfirmStartOverDialogListener,
+        ConfirmUndoDialogue.ConfirmUndoDialogListener
+{
 
     Integer currGuessNum = 0;
 
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     Button enterGuess = null;
     Button startOverButton = null;
+    Button undoButton = null;
     Button helpButton = null;
     ArrayList<Guess> guessObjects;
     ArrayList<String> wordList;
@@ -109,6 +113,72 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onConfirmUndoDialogueYes(DialogFragment dialog) {
+
+        if (currGuessNum > 0){
+
+            guessObjects.remove(guessObjects.get(currGuessNum));
+
+            if (currGuessNum == 1) {
+                prevGuess1.setText("1. " + EMPTY);
+                nextGuessLinearLayout.removeAllViews();
+            } else if (currGuessNum == 2) {
+                prevGuess2.setText("2. " + EMPTY);
+            } else if (currGuessNum == 3) {
+                prevGuess3.setText("3. " + EMPTY);
+            } else if (currGuessNum == 4) {
+                prevGuess4.setText("4. " + EMPTY);
+            } else if (currGuessNum == 5) {
+                prevGuess5.setText("5. " + EMPTY);
+            } else {
+                prevGuess6.setText("6. " + EMPTY);
+            }
+
+            currGuessNum--;
+
+            if (currGuessNum > 0){
+                String displayedInfo = "";
+                ArrayList<String> bestWords = guessObjects.get(currGuessNum).getSortedWords(1000);
+                nextGuessLinearLayout.removeAllViews();
+
+                Float currScore;
+                String currScoreString= "";
+                for (String currWord : bestWords) {
+
+                    //scores.add(guessObjects.get(currGuessNum).wordToScore(bestWords.get(i)));
+                    currScore = guessObjects.get(currGuessNum).wordToScore(currWord);
+                    TextView newTextView = new TextView(getApplicationContext());
+                    currScoreString = String.format("%.3f", (currScore * 100));
+                    displayedInfo = currWord.toUpperCase() + " -> " + currScoreString + "%";
+                    newTextView.setText(displayedInfo);
+                    newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(WHITE_HEX)));
+                    newTextView.setTextSize(30);
+                    nextGuessLinearLayout.addView(newTextView);
+                }
+            }
+        }
+
+        //remove colors and text
+        textInput0.setText("");
+        textInput1.setText("");
+        textInput2.setText("");
+        textInput3.setText("");
+        textInput4.setText("");
+
+        textInput0.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+        textInput4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(GRAY_HEX)));
+    }
+
+    @Override
+    public void onConfirmUndoDialogueNo(DialogFragment dialog) {
+        //do nothing
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -140,6 +210,7 @@ public class MainActivity extends AppCompatActivity
 
         enterGuess = findViewById(R.id.enterGuess);
         startOverButton = findViewById(R.id.startOver);
+        undoButton = findViewById(R.id.undoGuess);
         helpButton = findViewById(R.id.helpButton);
 
         inputWrapping();
@@ -154,7 +225,6 @@ public class MainActivity extends AppCompatActivity
         enterGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 String enteredWord = "";
 
@@ -272,10 +342,13 @@ public class MainActivity extends AppCompatActivity
     public void utilButtons() {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
                 HelpButtonDialogue popup = new HelpButtonDialogue();
                 popup.show(getSupportFragmentManager(), null);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
 
@@ -286,6 +359,21 @@ public class MainActivity extends AppCompatActivity
 
                 ConfirmStartOverDialogue popup = new ConfirmStartOverDialogue();
                 popup.show(getSupportFragmentManager(), null);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ConfirmUndoDialogue popup = new ConfirmUndoDialogue();
+                popup.show(getSupportFragmentManager(), null);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
     }
