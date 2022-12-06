@@ -9,9 +9,6 @@ import java.util.Comparator;
 import java.util.Hashtable;
 
 
-
-
-                                                                                                    
 //
 //                                 (*
 //                                 //
@@ -58,12 +55,6 @@ import java.util.Hashtable;
 //  ███    ███ ███    ███   ███    ███ ███▌    ▄ ███  ███   ███
 //  ████████▀   ▀██████▀  ▄█████████▀  █████▄▄██ █▀    ▀█   █▀
 //                                     ▀
-
-
-
-
-
-
 
 
 public class Guess {

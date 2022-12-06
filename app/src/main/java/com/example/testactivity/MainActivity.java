@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    final String YELLOW_HEX = "#FFA500";
-    final String GRAY_HEX = "#D3D3D3";
-    final String GREEN_HEX = "#2F8E3C";
+    final String YELLOW_HEX = "#B59F3B";
+    final String GRAY_HEX = "#818384";
+    final String GREEN_HEX = "#438D4E";
 
-    final String BLACK_HEX = "#000000";
+    final String WHITE_HEX = "#FFFFFF";
 
     String mode = "textInput";
 
@@ -211,58 +211,24 @@ public class MainActivity extends AppCompatActivity
                             }
 
                             String displayedInfo = "";
-
-                            //how to use my stuff
-                            //
-                            //
-                            //arraylist for getting a sorted list of the best words to get, length is how long you want it to be, if smaller than length
-                            //it will be as long as there are words left
                             ArrayList<String> bestWords = guessObjects.get(currGuessNum).getSortedWords(1000);
-
-                            //to get percent you must use the hash, here is a corresponding arrayList
-                            //ArrayList<Float> scores = new ArrayList<Float>();
-
                             nextGuessLinearLayout.removeAllViews();
 
                             Float currScore;
+                            String currScoreString= "";
                             for (String currWord : bestWords) {
 
                                 //scores.add(guessObjects.get(currGuessNum).wordToScore(bestWords.get(i)));
                                 currScore = guessObjects.get(currGuessNum).wordToScore(currWord);
-
                                 TextView newTextView = new TextView(getApplicationContext());
-                                displayedInfo = currWord.toUpperCase() + " -> " + currScore.toString() + "%";
+                                currScoreString = String.format("%.3f", (currScore * 100));
+                                displayedInfo = currWord.toUpperCase() + " -> " + currScoreString + "%";
                                 newTextView.setText(displayedInfo);
-                                newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(BLACK_HEX)));
+                                newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(WHITE_HEX)));
                                 newTextView.setTextSize(30);
                                 nextGuessLinearLayout.addView(newTextView);
                             }
                         }
-
-                        {/*
-                            //you can also get sorted char[] for each letter based on score, position is where it is on the string
-                            char[] firstLetterScores = guessObjects.get(currGuessNum).getSortedLetters(0);
-
-                            //it is also easy to get the score of each letter, returns a percent (int for position in string, char for letter)
-                            float aLetterScore = guessObjects.get(currGuessNum).getLetterScore(0, 'a');
-
-                            //so you can do something like
-                            for (int i = 0; i < firstLetterScores.length; i++) {
-                                Log.d("chance of: " + firstLetterScores[i], " ---> " + guessObjects.get(currGuessNum).getLetterScore(0, firstLetterScores[i]));
-                            }
-                            //which should print the odds from highest to least of the first letter in the string
-                        */}
-
-                        //get the words and percentage from word list and display them
-                        /* for word in guess object
-                            TextView newTextView = new TextView(getApplicationContext());
-                            String displayedInfo = MAKE DISPLAY STRING HERE;
-                            newTextView.setText(displayedInfo);
-                            newTextView.setTextColor(ColorStateList.valueOf(Color.parseColor(BLACK_HEX)));
-                            newTextView.setTextSize(15);
-                            myRoot.addView(newTextView);
-
-                         */
 
                     } else {
 
