@@ -96,8 +96,9 @@ public class MainActivity extends AppCompatActivity
         prevGuess6.setText("6. " + EMPTY);
 
         currGuessNum = 0;
-
         guessObjects = new ArrayList<Guess>();
+
+        wordList = loadStrings();
         guessObjects.add(new Guess(wordList));
         guessObjects.get(0).setGuess("cares");
     }
