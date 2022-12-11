@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
 
+//the code goblin
 
 //
 //                                 (*
@@ -55,7 +56,6 @@ import java.util.Hashtable;
 //  ███    ███ ███    ███   ███    ███ ███▌    ▄ ███  ███   ███
 //  ████████▀   ▀██████▀  ▄█████████▀  █████▄▄██ █▀    ▀█   █▀
 //                                     ▀
-
 
 public class Guess {
     //An arraylist of Word objects that stores a score value

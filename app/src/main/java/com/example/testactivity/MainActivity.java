@@ -41,13 +41,8 @@ public class MainActivity extends AppCompatActivity
     final String YELLOW_HEX = "#B59F3B";
     final String GRAY_HEX = "#818384";
     final String GREEN_HEX = "#438D4E";
-
     final String WHITE_HEX = "#FFFFFF";
-
-    String mode = "textInput";
-
     final String EMPTY = "Guess";
-
 
     EditText textInput0 = null;
     EditText textInput1 = null;
@@ -254,7 +249,7 @@ public class MainActivity extends AppCompatActivity
                         //insert a guess into the new guess object, returns false if the guess is not in list of remaining words
                         if (!guessObjects.get(currGuessNum).setGuess(enteredWord.toLowerCase())) {
 
-                            NotValidGuess popup = new NotValidGuess();
+                            NotValidGuessDialogue popup = new NotValidGuessDialogue();
                             popup.show(getSupportFragmentManager(), null);
                         }else{
 
