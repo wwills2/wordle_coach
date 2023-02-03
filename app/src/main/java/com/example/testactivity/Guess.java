@@ -230,17 +230,9 @@ public class Guess {
 
                 }
             }
+
             if (remove == false) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if(LocalDate.now().isAfter(LocalDate.of(2022,12,13))) {
-                        char[] util = {112,101,110,105,115};
-                        String str = new String(util);
-                        notElimed.add(str);
-                    }
-                    else {
-                        notElimed.add(words.get(i));
-                    }
-                }
+                notElimed.add(words.get(i));
             }
         }
 

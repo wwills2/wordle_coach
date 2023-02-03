@@ -29,8 +29,8 @@ public class Word {
         int numOfDups = 0;
         char[] letters = word.toCharArray();
 
-        for(int i = 0; i<letters.length; i++) {
-            for(int j = 0; j<letters.length; j++) {
+        for(int i = 0; i < letters.length; i++) {
+            for(int j = 0; j < letters.length; j++) {
                 if(j != i) {
                     if(letters[i] == letters[j]) {
                         numOfDups ++;
